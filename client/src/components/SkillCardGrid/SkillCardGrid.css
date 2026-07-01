@@ -1,0 +1,292 @@
+/* SkillCardGrid.css */
+
+.skill-grid-container {
+  width: 100%;
+  padding: 48px 24px 80px 24px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.skill-grid-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* 3-Column Grid Layout */
+.skill-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+}
+
+/* Card Container */
+.skill-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb; /* Soft grey border matching image */
+  border-radius: 16px; /* Rounded corners */
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.skill-card:hover {
+  transform: translateY(-4px);
+  border-color: #d1d5db;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+}
+
+/* Top row: User Info & Tag */
+.skill-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.skill-card-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.skill-card-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #f3f4f6;
+}
+
+.skill-card-user-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.skill-card-name {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #111827; /* Dark slate-black */
+  line-height: 1.2;
+}
+
+.skill-card-school {
+  font-size: 12px;
+  color: #6b7280; /* Muted gray */
+  margin-top: 2px;
+}
+
+/* Category pill tag */
+.skill-card-tag {
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  background-color: #eef2ff; /* Light indigo tint */
+  color: #4f46e5; /* Indigo */
+}
+
+/* Math pill color differences if any (optional but nice) */
+.skill-card-tag.coding {
+  background-color: #eef2ff;
+  color: #4f46e5;
+}
+
+.skill-card-tag.design {
+  background-color: #f5f3ff;
+  color: #6d28d9;
+}
+
+.skill-card-tag.math {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+}
+
+.skill-card-tag.languages {
+  background-color: #f0fdf4;
+  color: #166534;
+}
+
+.skill-card-tag.music {
+  background-color: #fff7ed;
+  color: #c2410c;
+}
+
+.skill-card-tag.examprep {
+  background-color: #fdf2f8;
+  color: #be185d;
+}
+
+/* Title & Description */
+.skill-card-body {
+  flex-grow: 1;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-card-title {
+  font-size: 21px;
+  font-weight: 700;
+  color: #0f172a; /* Slate-900 */
+  line-height: 1.3;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.3px;
+}
+
+.skill-card-description {
+  font-size: 14.5px;
+  color: #4b5563; /* Slate-600 */
+  line-height: 1.55;
+  margin: 0 0 20px 0;
+  min-height: 66px; /* Ensures text block height matches across cards for layout symmetry */
+}
+
+/* Metadata (Availability row) */
+.skill-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #4b5563;
+  font-size: 13.5px;
+  font-weight: 500;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.skill-card-meta-icon {
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Bottom Footer: Rating & Button */
+.skill-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-top: 1px solid #f3f4f6;
+  padding-top: 18px;
+}
+
+/* Rating */
+.skill-card-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.skill-card-rating-star {
+  color: #6366f1; /* Purple-indigo star icon matching image */
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.skill-card-rating-score {
+  font-weight: 700;
+  color: #111827;
+}
+
+/* View Details Button */
+.skill-card-btn {
+  background-color: #4f46e5;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.1), 0 2px 4px -1px rgba(79, 70, 229, 0.06);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.skill-card-btn:hover {
+  background-color: #4338ca;
+}
+
+.skill-card-btn:active {
+  transform: scale(0.97);
+}
+
+/* Responsive constraints */
+@media (max-width: 1024px) {
+  .skill-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 680px) {
+  .skill-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .skill-grid-container {
+    padding: 32px 16px 60px 16px;
+  }
+
+  .skill-card-description {
+    min-height: auto;
+  }
+}
+
+/* Load More Button Wrapper */
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 48px;
+}
+
+/* Load More Button styling */
+.load-more-btn {
+  background-color: #f0f2ff; /* Light indigo background */
+  border: 1px solid #c7d2fe; /* Light indigo border */
+  color: #4f46e5; /* Indigo text */
+  font-size: 15px;
+  font-weight: 600;
+  padding: 14px 38px;
+  border-radius: 9999px; /* Pill shape */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.04);
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.load-more-btn:hover {
+  background-color: #e0e7ff; /* Slightly darker indigo tint on hover */
+  border-color: #a5b4fc;
+  box-shadow: 0 6px 8px -1px rgba(79, 70, 229, 0.08);
+  transform: translateY(-1px);
+}
+
+.load-more-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.load-more-icon {
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.load-more-btn:hover .load-more-icon {
+  transform: translateY(2px); /* Subtle downward bounce on hover */
+}

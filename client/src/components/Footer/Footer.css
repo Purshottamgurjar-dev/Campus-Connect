@@ -1,0 +1,164 @@
+/* Footer.css */
+
+.footer-container {
+  width: 100%;
+  background-color: #f0f4fa; /* Soft periwinkle background matching CategoryBar */
+  border-top: 1px solid #e2e8f0;
+  padding: 40px 24px;
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.footer-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+/* Left Section: Logos & Copyright */
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.footer-logo-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+/* Small Monochrome Badge for Footer (+ CampusConn) */
+.footer-small-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-plus-icon {
+  width: 16px;
+  height: 16px;
+  background-color: #6b7280; /* Gray badge */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.footer-small-text {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #6b7280; /* Gray text */
+  letter-spacing: -0.2px;
+}
+
+/* Main Brand Logo */
+.footer-main-logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #4f46e5; /* Indigo */
+  letter-spacing: -0.5px;
+}
+
+.footer-copyright {
+  font-size: 13.5px;
+  color: #6b7280;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Right Section: Container for Links & Actions */
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.footer-links-group {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.footer-link {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #4b5563; /* Slate Grey */
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.footer-link:hover {
+  color: #4f46e5;
+}
+
+/* Right Section: Social Icon Buttons */
+.footer-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #eef2ff; /* Very soft light indigo background */
+  color: #4b5563; /* Slate grey icon */
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+
+.footer-icon-btn:hover {
+  background-color: #e0e7ff; /* Slightly darker periwinkle background on hover */
+  color: #4f46e5; /* Indigo icon on hover */
+  transform: translateY(-1px);
+}
+
+.footer-icon-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* Responsive configurations */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 28px;
+  }
+
+  .footer-left {
+    align-items: center;
+  }
+
+  .footer-right {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .footer-links-group {
+    justify-content: center;
+    width: 100%;
+    gap: 24px;
+  }
+
+  .footer-right-actions {
+    justify-content: center;
+    width: 100%;
+  }
+}
