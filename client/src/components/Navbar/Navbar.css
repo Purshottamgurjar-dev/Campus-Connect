@@ -1,0 +1,212 @@
+/* Navbar.css */
+
+.navbar-container {
+  width: 100%;
+  background-color: #ffffff;
+  border-bottom: 1px solid #f0f3f6;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.navbar-content {
+  max-width: 1280px;
+  height: 72px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Left Section: Logo & Links */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.navbar-logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: #4f46e5; /* Indigo-600 */
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s ease;
+}
+
+.navbar-logo:hover {
+  opacity: 0.9;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-item {
+  display: flex;
+  align-items: center;
+  height: 72px; /* Matches navbar height to vertically center elements */
+  position: relative;
+}
+
+.navbar-link {
+  font-size: 15px;
+  font-weight: 500;
+  color: #374151; /* Dark charcoal/grey */
+  text-decoration: none;
+  transition: color 0.2s ease;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.navbar-link:hover {
+  color: #4f46e5;
+}
+
+/* Active Link styling matching image */
+.navbar-link.active {
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+.navbar-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 22px; /* Adjust distance from text to match the image spacing */
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #4f46e5;
+  border-radius: 2px;
+}
+
+/* Right Section: Buttons */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.navbar-login-btn {
+  font-size: 15px;
+  font-weight: 500;
+  color: #4f46e5;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.navbar-login-btn:hover {
+  opacity: 0.85;
+}
+
+.navbar-login-btn:active {
+  transform: scale(0.98);
+}
+
+.navbar-get-started-btn {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #4f46e5;
+  border: none;
+  border-radius: 8px; /* Smooth rounded corners as seen in the image */
+  padding: 10px 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.15), 0 2px 4px -1px rgba(79, 70, 229, 0.1);
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.navbar-get-started-btn:hover {
+  background-color: #4338ca; /* Darker indigo on hover */
+  box-shadow: 0 6px 8px -1px rgba(79, 70, 229, 0.2), 0 3px 6px -1px rgba(79, 70, 229, 0.15);
+  transform: translateY(-1px);
+}
+
+.navbar-get-started-btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 4px -1px rgba(79, 70, 229, 0.1);
+}
+
+/* Mobile Toggle Hamburger button - hidden on desktop */
+.navbar-mobile-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 22px;
+  height: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.navbar-mobile-toggle span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: #374151;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .navbar-mobile-toggle {
+    display: flex;
+  }
+
+  .navbar-links {
+    position: absolute;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f0f3f6;
+    flex-direction: column;
+    gap: 0;
+    padding: 16px 0;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    display: none;
+  }
+
+  .navbar-links.mobile-active {
+    display: flex;
+  }
+
+  .navbar-item {
+    width: 100%;
+    height: auto;
+    justify-content: center;
+  }
+
+  .navbar-link {
+    width: 100%;
+    text-align: center;
+    padding: 12px 0;
+  }
+
+  .navbar-link.active::after {
+    display: none; /* Hide standard underline on mobile list layout */
+  }
+
+  .navbar-link.active {
+    background-color: #f3f4f6;
+    color: #4f46e5;
+  }
+}
