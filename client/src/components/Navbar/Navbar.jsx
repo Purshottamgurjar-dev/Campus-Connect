@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
 export default function Navbar() {
-  const [activeTab, setActiveTab] = useState("Home");
+  const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleTabClick = (tabName) => {
-    setActiveTab(tabName);
+  const handleTabClick = () => {
     setMobileMenuOpen(false);
   };
 
@@ -15,28 +15,28 @@ export default function Navbar() {
       <div className="navbar-content">
         {/* Left Section: Logo & Navigation Links */}
         <div className="navbar-left">
-          <a href="/" className="navbar-logo" onClick={() => handleTabClick("Home")}>
+          <Link to="/" className="navbar-logo" onClick={handleTabClick}>
             CampusConnect
-          </a>
+          </Link>
           
           <ul className={`navbar-links ${mobileMenuOpen ? "mobile-active" : ""}`}>
             <li className="navbar-item">
-              <a
-                href="#home"
-                className={`navbar-link ${activeTab === "Home" ? "active" : ""}`}
-                onClick={() => handleTabClick("Home")}
+              <Link
+                to="/"
+                className={`navbar-link ${location.pathname === "/" ? "active" : ""}`}
+                onClick={handleTabClick}
               >
                 Home
-              </a>
+              </Link>
             </li>
             <li className="navbar-item">
-              <a
-                href="#skills"
-                className={`navbar-link ${activeTab === "Browse Skills" ? "active" : ""}`}
-                onClick={() => handleTabClick("Browse Skills")}
+              <Link
+                to="/skills"
+                className={`navbar-link ${location.pathname === "/skills" ? "active" : ""}`}
+                onClick={handleTabClick}
               >
                 Browse Skills
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

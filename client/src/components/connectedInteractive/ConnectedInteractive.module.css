@@ -1,0 +1,184 @@
+.container {
+  max-width: 100%;
+  padding: 0.5rem 4rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #111827;
+  background-color: #f8fafc;
+}
+
+.heroSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  margin-bottom: 6rem;
+}
+
+.heroContent {
+  flex: 1;
+  max-width: 500px;
+}
+
+.heroTitle {
+  font-size: 4.5rem;
+  line-height: 1.1;
+  font-weight: 800;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.heroHighlight {
+  color: #6366f1;
+  font-style: italic;
+  font-weight: 800;
+}
+
+.heroDescription {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #6b7280;
+  margin-bottom: 2rem;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+}
+
+.primaryButton,
+.secondaryButton {
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.primaryButton {
+  background-color: #6366f1;
+  color: white;
+  border: none;
+}
+
+.primaryButton:hover {
+  background-color: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.secondaryButton {
+  background-color: white;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+
+.secondaryButton:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+  transform: translateY(-2px);
+}
+
+.heroImageContainer {
+  flex: 1.2;
+  display: flex;
+  justify-content: flex-end;
+  background-color: #e0e7ff;
+  border-radius: 1.5rem;
+  padding: 1rem;
+}
+
+.heroImage {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+.categoriesSection {
+  text-align: center;
+}
+
+.categoriesTitle {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 3rem;
+}
+
+.categoriesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.categoryCard {
+  background-color: white;
+  padding: 2rem 1.5rem;
+  border-radius: 1rem;
+  width:auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  border: 1px solid #f3f4f6;
+}
+
+.categoryCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.iconContainer {
+  font-size: 2rem;
+  color: #6366f1;
+  margin-bottom: 1rem;
+}
+
+.categoryName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.categoryMentors {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .heroSection {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .heroContent {
+    margin: 0 auto;
+  }
+
+  .buttonGroup {
+    justify-content: center;
+  }
+
+  .heroImageContainer {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .categoryCard {
+    width: 120px;
+    padding: 1.5rem 1rem;
+  }
+}
