@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Navbar2 from './components/Navbar/Navbar2'
 import Hero from './components/Hero/Hero'
 import CategoryBar from './components/CategoryBar/CategoryBar'
@@ -8,51 +8,34 @@ import SkillDetailsPage from './components/SkillDetails/SkillDetailsPage'
 import DashboardPage from './components/Dashboard/DashboardPage'
 import Footer from './components/Footer/Footer'
 import AuthModal from './components/Navbar/AuthModal'
-import { getMyProfile } from './services/Api'
 import './App.css'
 
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
   const [selectedCard, setSelectedCard] = useState(null);
   
-  // Auth state
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
-  const [user, setUser] = useState(null);
+  // Auth state (starts logged in by default with a mock user for easy development)
+  const [user, setUser] = useState({
+    id: "mock_user_purshottam",
+    name: "Purshottam",
+    email: "purshottam@college.edu",
+    college: "Stanford University",
+    city: "Stanford",
+    bio: "CS student passionate about UI design and programming.",
+    skillsToTeach: ["UI Design", "Figma"],
+    skillsToLearn: ["Python", "Algorithms"]
+  });
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   // Filters state
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedSort, setSelectedSort] = useState("Most Recent");
 
-  // Fetch profile if token exists
-  useEffect(() => {
-    const loadProfile = async () => {
-      if (token) {
-        try {
-          const profile = await getMyProfile();
-          setUser(profile);
-        } catch (err) {
-          console.error("Failed to load profile:", err);
-          // Token is likely invalid or expired
-          handleLogout();
-        }
-      }
-      setLoading(false);
-    };
-
-    loadProfile();
-  }, [token]);
-
   const handleLoginSuccess = (newToken, loggedInUser) => {
-    localStorage.setItem("token", newToken);
-    setToken(newToken);
     setUser(loggedInUser);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setToken("");
     setUser(null);
     setCurrentPage("home");
   };
@@ -64,14 +47,6 @@ function App() {
     }
     window.scrollTo(0, 0);
   };
-
-  if (loading) {
-    return (
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", fontSize: "18px", color: "#6366f1", fontWeight: "600" }}>
-        Loading CampusConnect...
-      </div>
-    );
-  }
 
   // Skip global layout headers/footers when viewing dashboard
   if (currentPage === "dashboard") {
