@@ -9,8 +9,9 @@ const connectDB = async () => {
         await mongoose.connect(process.env.MONGO_URI);
         console.log("MongoDB Connected Successfully 🚀");
     } catch (error) {
-        console.error("MongoDB Connection Failed ❌", error);
-        process.exit(1);
+        console.error("MongoDB Connection Failed ❌", error.message);
+        console.log("⚠️ Server is starting without MongoDB connection. Please ensure your IP is whitelisted on MongoDB Atlas.");
+        // process.exit(1);
     }
 };
 

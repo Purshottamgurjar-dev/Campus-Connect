@@ -1,0 +1,206 @@
+/* UpcomingSessionsCard.css */
+
+.upcoming-sessions-card-container {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01);
+  box-sizing: border-box;
+  width: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* Header Row */
+.upcoming-sessions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.upcoming-sessions-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a; /* Slate-900 */
+  margin: 0;
+}
+
+.upcoming-sessions-view-all {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #4f46e5;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.upcoming-sessions-view-all:hover {
+  color: #3730a3; /* Darker indigo */
+}
+
+/* Divider Line */
+.upcoming-sessions-divider {
+  border: none;
+  border-top: 1px solid #f1f5f9;
+  margin: 0;
+  width: 100%;
+}
+
+/* Sessions List Wrapper */
+.upcoming-sessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* Individual Session Row Item */
+.upcoming-session-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #eff6ff; /* Very soft light outline matching card mockup */
+  border-radius: 14px;
+  padding: 16px 20px;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.upcoming-session-row:hover {
+  border-color: #dbeafe;
+  box-shadow: 0 4px 12px -2px rgba(59, 130, 246, 0.04);
+}
+
+/* Column 1: Tutor details & course subject info */
+.upcoming-session-col-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 40%;
+}
+
+.upcoming-session-avatar-wrapper {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.upcoming-session-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Active green online/status circle */
+.upcoming-session-status-dot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 11px;
+  height: 11px;
+  background-color: #22c55e; /* Active online green */
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+}
+
+.upcoming-session-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.upcoming-session-subject {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.3;
+}
+
+.upcoming-session-tutor {
+  font-size: 13.5px;
+  color: #4b5563;
+  margin-top: 3px;
+}
+
+/* Column 2: Date & Scheduled Hours info */
+.upcoming-session-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 35%;
+}
+
+.upcoming-session-date {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1;
+}
+
+.upcoming-session-time {
+  font-size: 13.5px;
+  color: #4b5563;
+  margin-top: 5px;
+}
+
+/* Column 3: Status Badge */
+.upcoming-session-col-right {
+  display: flex;
+  justify-content: flex-end;
+  width: 25%;
+}
+
+/* Badge styling configurations */
+.upcoming-session-badge {
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  text-align: center;
+  display: inline-block;
+  line-height: 1.25;
+}
+
+.upcoming-session-badge.confirmed {
+  background-color: #dbeafe; /* Soft blue tint */
+  color: #1e40af; /* Deep blue */
+}
+
+.upcoming-session-badge.pending {
+  background-color: #e0e7ff; /* Soft indigo tint */
+  color: #4f46e5; /* Deep indigo */
+}
+
+/* Responsive configurations */
+@media (max-width: 768px) {
+  .upcoming-session-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px;
+  }
+
+  .upcoming-session-col-left,
+  .upcoming-session-col-center,
+  .upcoming-session-col-right {
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .upcoming-session-col-center {
+    padding-left: 64px;
+    box-sizing: border-box;
+  }
+
+  .upcoming-session-col-right {
+    padding-left: 64px;
+    box-sizing: border-box;
+  }
+}

@@ -1,24 +1,49 @@
 import React, { useState } from "react";
+import { requestSession } from "../../services/Api";
 import "./BookingSidebar.css";
 
-export default function BookingSidebar() {
+export default function BookingSidebar({ card, user, onLoginClick }) {
   const [preferredDate, setPreferredDate] = useState("");
   const [preferredTime, setPreferredTime] = useState("");
   const [message, setMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const tutorFirstName = card ? card.name.split(" ")[0] : "Alex";
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!user) {
+      alert("Please log in first to request a session.");
+      if (onLoginClick) onLoginClick();
+      return;
+    }
+
     if (!preferredDate || !preferredTime) {
       alert("Please select a preferred date and time.");
       return;
     }
-    
-    alert(`Request Sent Successfully!\nDate: ${preferredDate}\nTime: ${preferredTime}\nMessage: ${message || "No message provided."}`);
-    
-    // Clear form fields
-    setPreferredDate("");
-    setPreferredTime("");
-    setMessage("");
+
+    setSubmitting(true);
+    try {
+      await requestSession({
+        skillId: card._id || card.id,
+        date: preferredDate,
+        time: preferredTime,
+        message: message || ""
+      });
+
+      alert(`Request Sent Successfully!\nDate: ${preferredDate}\nTime: ${preferredTime}\nThe teacher will respond to your request shortly.`);
+      
+      // Clear form fields
+      setPreferredDate("");
+      setPreferredTime("");
+      setMessage("");
+    } catch (err) {
+      alert(err.response?.data?.message || "Failed to submit booking request. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -99,15 +124,15 @@ export default function BookingSidebar() {
           <textarea
             id="booking-message"
             className="booking-field textarea-field"
-            placeholder="Tell Alex about your current skill level or specific goals..."
+            placeholder={`Tell ${tutorFirstName} about your current skill level or specific goals...`}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           ></textarea>
         </div>
 
         {/* Send Request Button */}
-        <button type="submit" className="booking-submit-btn">
-          Send Request
+        <button type="submit" className="booking-submit-btn" disabled={submitting}>
+          {submitting ? "Sending..." : "Send Request"}
         </button>
       </form>
 

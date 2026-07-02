@@ -1,0 +1,116 @@
+/* StatsRow.css */
+
+.dashboard-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 32px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Individual Stat Card */
+.stat-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
+  box-sizing: border-box;
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.03), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+}
+
+/* Icon Box Wrapper */
+.stat-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Dynamic color definitions based on card type */
+.stat-icon-wrapper.listings {
+  background-color: #eef2ff; /* Light indigo periwinkle */
+  color: #4f46e5;
+}
+
+.stat-icon-wrapper.pending {
+  background-color: #f3e8ff; /* Light purple */
+  color: #7c3aed;
+}
+
+.stat-icon-wrapper.sessions {
+  background-color: #e0f2fe; /* Light blue */
+  color: #0284c7;
+}
+
+.stat-icon-wrapper.rating {
+  background-color: #eef2ff; /* Light indigo periwinkle */
+  color: #4f46e5;
+}
+
+/* Text elements side */
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #4b5563; /* Slate grey */
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+.stat-value-group {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.stat-value-num {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937; /* Dark slate */
+  line-height: 1.1;
+}
+
+.stat-value-suffix {
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7280; /* Gray text */
+}
+
+/* Pending new request badge (purple) */
+.stat-value-suffix.new-badge {
+  color: #7c3aed; /* Bold purple */
+}
+
+/* Responsive grid handles */
+@media (max-width: 1200px) {
+  .dashboard-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

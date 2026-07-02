@@ -1,0 +1,163 @@
+/* Sidebar.css */
+
+.dashboard-sidebar {
+  width: 260px;
+  height: 100vh;
+  background-color: #f0f4fa; /* Matches the soft periwinkle background from image */
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+/* Brand/Logo Section */
+.sidebar-brand {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.sidebar-logo-text {
+  font-size: 22px;
+  font-weight: 700;
+  color: #4f46e5; /* Main indigo brand color */
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.sidebar-logo-sub {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280; /* Muted gray description text */
+  margin-top: 4px;
+  letter-spacing: -0.1px;
+}
+
+/* Navigation List Container */
+.sidebar-menu {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 16px;
+  margin: 0;
+  list-style: none;
+}
+
+/* Menu Item */
+.sidebar-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #4b5563; /* Slate grey */
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+/* Icon box */
+.sidebar-menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  transition: color 0.15s ease;
+}
+
+/* Active Item state (Overview in image) */
+.sidebar-menu-item.active {
+  background-color: #e0e7ff; /* Very soft light indigo background matching image */
+  color: #4f46e5; /* Active text color */
+  font-weight: 600;
+}
+
+.sidebar-menu-item.active .sidebar-menu-icon {
+  color: #4f46e5;
+}
+
+/* Active Vertical Side Border Indicator on Right edge */
+.sidebar-menu-item.active::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  right: 0;
+  width: 4px;
+  background-color: #4f46e5;
+  border-radius: 999px;
+}
+
+/* Hover effects for non-active items */
+.sidebar-menu-item:not(.active):hover {
+  background-color: rgba(79, 70, 229, 0.04);
+  color: #4f46e5;
+}
+
+.sidebar-menu-item:not(.active):hover .sidebar-menu-icon {
+  color: #4f46e5;
+}
+
+.sidebar-menu-item:active {
+  transform: scale(0.98);
+}
+
+/* Bottom Logout action */
+.sidebar-footer {
+  padding: 24px 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.sidebar-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #4b5563;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.sidebar-logout-btn:hover {
+  background-color: #fef2f2; /* Soft red tint */
+  color: #ef4444; /* Red exit text */
+}
+
+.sidebar-logout-btn:hover .sidebar-menu-icon {
+  color: #ef4444;
+}
+
+.sidebar-logout-btn:active {
+  transform: scale(0.98);
+}
+
+/* Mobile responsive sidebar handling */
+@media (max-width: 1024px) {
+  .dashboard-sidebar {
+    transform: translateX(-100%); /* Hides sidebar offscreen on tablets/mobiles */
+  }
+
+  .dashboard-sidebar.open {
+    transform: translateX(0); /* Drawer slides in */
+    box-shadow: 10px 0 25px -5px rgba(0, 0, 0, 0.05);
+  }
+}

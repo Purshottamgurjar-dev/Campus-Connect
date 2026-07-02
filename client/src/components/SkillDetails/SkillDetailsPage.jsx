@@ -6,11 +6,15 @@ import ReviewsSection from "./ReviewsSection";
 import BookingSidebar from "./BookingSidebar";
 import "./SkillDetailsPage.css";
 
-export default function SkillDetailsPage({ onNavigate }) {
+import { skillsData } from "../../data/skillsData";
+
+export default function SkillDetailsPage({ onNavigate, selectedCard, user, onLoginClick }) {
+  const card = selectedCard || skillsData[0];
+
   return (
     <div className="details-page-container">
       {/* Breadcrumbs Navigation */}
-      <Breadcrumbs onNavigate={onNavigate} />
+      <Breadcrumbs onNavigate={onNavigate} category={card.category} title={card.title} />
 
       {/* Main Grid Content */}
       <div className="details-page-content">
@@ -18,19 +22,19 @@ export default function SkillDetailsPage({ onNavigate }) {
         {/* Left Column: Skill Information & Reviews */}
         <div className="details-left-column">
           {/* Component 1: Course Info Banner */}
-          <SkillDetailCard />
+          <SkillDetailCard card={card} />
 
           {/* Component 2: Tutor Profile Card */}
-          <TutorProfileCard />
+          <TutorProfileCard card={card} />
 
           {/* Component 3: Reviews & Ratings section */}
-          <ReviewsSection />
+          <ReviewsSection card={card} user={user} onLoginClick={onLoginClick} />
         </div>
 
         {/* Right Column: Request booking form */}
         <div className="details-right-column">
           {/* Component 4: Session Request Sidebar Form */}
-          <BookingSidebar />
+          <BookingSidebar card={card} user={user} onLoginClick={onLoginClick} />
         </div>
 
       </div>

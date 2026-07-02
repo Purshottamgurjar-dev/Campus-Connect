@@ -1,7 +1,7 @@
 import React from "react";
 import "./Breadcrumbs.css";
 
-export default function Breadcrumbs({ onNavigate }) {
+export default function Breadcrumbs({ onNavigate, category = "Coding", title = "React.js Basics" }) {
   const handleHomeClick = (e) => {
     e.preventDefault();
     if (onNavigate) {
@@ -37,7 +37,7 @@ export default function Breadcrumbs({ onNavigate }) {
             onClick={handleHomeClick}
             className="breadcrumbs-link"
           >
-            Coding
+            {category}
           </a>
         </li>
 
@@ -50,7 +50,7 @@ export default function Breadcrumbs({ onNavigate }) {
 
         {/* Current Page */}
         <li className="breadcrumbs-item breadcrumbs-current" aria-current="page">
-          React.js Basics
+          {title}
         </li>
       </ul>
     </nav>

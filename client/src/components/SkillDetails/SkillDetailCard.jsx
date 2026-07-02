@@ -1,9 +1,8 @@
 import React from "react";
 import "./SkillDetailCard.css";
 
-export default function SkillDetailCard() {
+export default function SkillDetailCard({ card }) {
   const handleShareClick = () => {
-    // Demo action
     if (navigator.clipboard) {
       navigator.clipboard.writeText(window.location.href);
       alert("Link copied to clipboard!");
@@ -12,11 +11,15 @@ export default function SkillDetailCard() {
     }
   };
 
+  if (!card) return null;
+
   return (
     <div className="detail-card-container">
       {/* Top Header Section */}
       <div className="detail-card-header">
-        <span className="detail-card-category">Coding</span>
+        <span className={`detail-card-category ${card.categoryClass || ""}`}>
+          {card.category}
+        </span>
         <button className="detail-card-share-btn" onClick={handleShareClick}>
           <span className="detail-card-share-icon">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -32,25 +35,25 @@ export default function SkillDetailCard() {
       </div>
 
       {/* Course Title */}
-      <h1 className="detail-card-title">Learn React.js from Scratch</h1>
+      <h1 className="detail-card-title">{card.title}</h1>
 
       {/* Tutor Profile Row */}
       <div className="detail-card-tutor">
         <img
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150"
-          alt="Alex Rivera"
+          src={card.avatar}
+          alt={card.name}
           className="detail-card-avatar"
         />
         <div className="detail-card-tutor-info">
-          <span className="detail-card-tutor-name">Alex Rivera</span>
+          <span className="detail-card-tutor-name">{card.name}</span>
           <div className="detail-card-rating">
             <span className="detail-card-star">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
               </svg>
             </span>
-            <span className="detail-card-rating-val">4.9</span>
-            <span>(124 reviews)</span>
+            <span className="detail-card-rating-val">{card.rating.toFixed(1)}</span>
+            <span>({card.reviews} reviews)</span>
           </div>
         </div>
       </div>
@@ -59,9 +62,7 @@ export default function SkillDetailCard() {
       <hr className="detail-card-divider" />
 
       {/* Description Paragraph */}
-      <p className="detail-card-description">
-        A comprehensive introduction to React.js for beginners. We'll cover components, props, state, and hooks through hands-on coding exercises. By the end of our sessions, you'll be able to build a functional interactive web application.
-      </p>
+      <p className="detail-card-description">{card.description}</p>
 
       {/* Footer Meta Details */}
       <div className="detail-card-footer">
@@ -74,7 +75,7 @@ export default function SkillDetailCard() {
               <line x1="3" y1="10" x2="21" y2="10"></line>
             </svg>
           </span>
-          <span>Weekends Only</span>
+          <span>{card.availability}</span>
         </div>
 
         <div className="detail-card-meta-item">

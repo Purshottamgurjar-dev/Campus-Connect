@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Navbar2.css";
 
-export default function Navbar2({ onNavigate, currentPage }) {
+export default function Navbar2({ onNavigate, currentPage, user, onLoginClick, onLogout }) {
   const [activeTab, setActiveTab] = useState("Browse Skills");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // Default to logged-in state shown in the second image
   const [hasNotifications, setHasNotifications] = useState(true);
 
   const profileRef = useRef(null);
+  const isLoggedIn = !!user;
 
   // Sync navbar active tab state with page state changes
   useEffect(() => {
     if (currentPage === "home") {
       setActiveTab("Browse Skills");
+    } else if (currentPage === "dashboard") {
+      setActiveTab("Dashboard");
     } else {
       setActiveTab("");
     }
@@ -33,8 +35,16 @@ export default function Navbar2({ onNavigate, currentPage }) {
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
     setMobileMenuOpen(false);
-    if (tabName === "Browse Skills" && onNavigate) {
-      onNavigate("home");
+    if (onNavigate) {
+      if (tabName === "Browse Skills") {
+        onNavigate("home");
+      } else if (tabName === "Dashboard") {
+        if (!isLoggedIn) {
+          onLoginClick();
+        } else {
+          onNavigate("dashboard");
+        }
+      }
     }
   };
 
@@ -114,7 +124,7 @@ export default function Navbar2({ onNavigate, currentPage }) {
                   aria-label="User Profile menu"
                 >
                   <img 
-                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" 
+                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150" 
                     alt="User Profile" 
                     className="navbar2-avatar-img"
                   />
@@ -123,27 +133,19 @@ export default function Navbar2({ onNavigate, currentPage }) {
                 {profileDropdownOpen && (
                   <div className="navbar2-dropdown">
                     <div style={{ padding: "10px 16px", fontSize: "13px", fontWeight: "600", color: "#6b7280" }}>
-                      John Doe
+                      {user.name}
                     </div>
                     <div className="navbar2-dropdown-divider"></div>
-                    <a href="#profile" className="navbar2-dropdown-item" onClick={() => setProfileDropdownOpen(false)}>
+                    <a href="#profile" className="navbar2-dropdown-item" onClick={() => { setProfileDropdownOpen(false); onNavigate("dashboard"); }}>
                       My Profile
                     </a>
-                    <a href="#settings" className="navbar2-dropdown-item" onClick={() => setProfileDropdownOpen(false)}>
+                    <a href="#settings" className="navbar2-dropdown-item" onClick={() => { setProfileDropdownOpen(false); onNavigate("dashboard"); }}>
                       Settings
                     </a>
                     <div className="navbar2-dropdown-divider"></div>
-                    {/* Switcher to test logged-out layout */}
                     <div 
                       className="navbar2-dropdown-item" 
-                      onClick={() => { setIsLoggedIn(false); setProfileDropdownOpen(false); }}
-                      style={{ color: "#6366f1" }}
-                    >
-                      Demo Logged Out State
-                    </div>
-                    <div 
-                      className="navbar2-dropdown-item" 
-                      onClick={() => { setIsLoggedIn(false); setProfileDropdownOpen(false); }}
+                      onClick={() => { onLogout(); setProfileDropdownOpen(false); }}
                       style={{ color: "#ef4444" }}
                     >
                       Log Out
@@ -155,8 +157,8 @@ export default function Navbar2({ onNavigate, currentPage }) {
           ) : (
             /* Logged Out View */
             <>
-              <button className="navbar2-login-btn" onClick={() => setIsLoggedIn(true)}>Log In</button>
-              <button className="navbar2-get-started-btn" onClick={() => setIsLoggedIn(true)}>Get Started</button>
+              <button className="navbar2-login-btn" onClick={onLoginClick}>Log In</button>
+              <button className="navbar2-get-started-btn" onClick={onLoginClick}>Get Started</button>
             </>
           )}
 
