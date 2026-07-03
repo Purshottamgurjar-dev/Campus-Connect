@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './ConnectedInteractive.module.css';
+import Navbar from '../Navbar/Navbar';
+import Hero from '../Hero/Hero';
 import { BiCodeAlt, BiBookOpen } from 'react-icons/bi';
 import { LuSigma } from 'react-icons/lu';
 import { MdColorLens } from 'react-icons/md';
@@ -19,7 +21,10 @@ const ConnectedInteractive = () => {
   ];
 
   return (
-    <div className={styles.container}>
+    <>
+      <Navbar />
+   <Hero/>
+      <div className={styles.container}>
       <div className={styles.heroSection}>
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>
@@ -58,7 +63,8 @@ const ConnectedInteractive = () => {
           ))}
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 
