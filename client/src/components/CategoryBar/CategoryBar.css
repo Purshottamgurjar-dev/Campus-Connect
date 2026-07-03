@@ -1,0 +1,204 @@
+/* CategoryBar.css */
+
+.category-bar-container {
+  width: 100%;
+  background-color: #f0f4fa; /* Soft periwinkle/blue-gray background matching the image */
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 14px 24px;
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.category-bar-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+/* Left side: Categories label + pills */
+.category-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.category-label {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #4b5563; /* Slate-600 */
+  letter-spacing: -0.1px;
+}
+
+.category-pills {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Category Pill Styling */
+.category-pill {
+  font-size: 14.5px;
+  font-weight: 500;
+  padding: 8px 22px;
+  border-radius: 9999px; /* Pill shape matching the image */
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease, transform 0.1s ease;
+  user-select: none;
+}
+
+/* Active Selected Pill (All) */
+.category-pill.active {
+  background-color: #4f46e5; /* Indigo */
+  color: #ffffff;
+  border-color: #4f46e5;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.15);
+}
+
+/* Inactive Pill (Coding, Math, etc.) */
+.category-pill.inactive {
+  background-color: #ffffff;
+  color: #374151; /* Slate-700 */
+  border-color: #d1d5db; /* Grey border */
+}
+
+/* Hover effects for Inactive Pills */
+.category-pill.inactive:hover {
+  border-color: #4f46e5;
+  color: #4f46e5;
+  background-color: #fafbfd;
+}
+
+.category-pill:active {
+  transform: scale(0.97);
+}
+
+/* Right side: Sort by selector */
+.category-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.sort-label {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+/* Sort Dropdown Trigger */
+.sort-trigger-btn {
+  background: transparent;
+  border: none;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #4f46e5;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sort-trigger-btn:hover {
+  background-color: rgba(79, 70, 229, 0.05);
+}
+
+.sort-chevron-icon {
+  color: #4b5563;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.sort-trigger-btn.active .sort-chevron-icon {
+  transform: rotate(180deg);
+}
+
+/* Sort Dropdown Menu */
+.sort-dropdown-menu {
+  position: absolute;
+  top: 36px;
+  right: 0;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  width: 160px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+  animation: sortDropdownIn 0.15s ease-out;
+}
+
+@keyframes sortDropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sort-dropdown-item {
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #374151;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: left;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sort-dropdown-item:hover {
+  background-color: #f3f4f6;
+  color: #4f46e5;
+}
+
+.sort-dropdown-item.selected {
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+/* Responsive queries */
+@media (max-width: 768px) {
+  .category-bar-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .category-bar-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .category-pills {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .category-pill {
+    padding: 6px 16px;
+    font-size: 13.5px;
+  }
+
+  .category-bar-right {
+    align-self: flex-end;
+  }
+}

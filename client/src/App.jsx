@@ -1,22 +1,101 @@
 import { useState } from 'react'
-import { Routes, Route } from 'react-router-dom'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import Navbar from './components/Navbar/Navbar'
+import Navbar2 from './components/Navbar/Navbar2'
+import Hero from './components/Hero/Hero'
+import CategoryBar from './components/CategoryBar/CategoryBar'
+import SkillCardGrid from './components/SkillCardGrid/SkillCardGrid'
+import CtaBanner from './components/CtaBanner/CtaBanner'
+import SkillDetailsPage from './components/SkillDetails/SkillDetailsPage'
+import DashboardPage from './components/Dashboard/DashboardPage'
+import Footer from './components/Footer/Footer'
+import AuthModal from './components/Navbar/AuthModal'
 import './App.css'
-import ConnectedInteractive from './components/connectedInteractive/ConnectedInteractive'
-import BrowseSkills from './components/BrowseSkills/BrowseSkills'
 
 function App() {
+  const [currentPage, setCurrentPage] = useState("home");
+  const [selectedCard, setSelectedCard] = useState(null);
+  
+  // Auth state (starts logged in by default with a mock user for easy development)
+  const [user, setUser] = useState({
+    id: "mock_user_purshottam",
+    name: "Purshottam",
+    email: "purshottam@college.edu",
+    college: "Stanford University",
+    city: "Stanford",
+    bio: "CS student passionate about UI design and programming.",
+    skillsToTeach: ["UI Design", "Figma"],
+    skillsToLearn: ["Python", "Algorithms"]
+  });
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+
+  // Filters state
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedSort, setSelectedSort] = useState("Most Recent");
+
+  const handleLoginSuccess = (newToken, loggedInUser) => {
+    setUser(loggedInUser);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setCurrentPage("home");
+  };
+
+  const handleNavigate = (page, card = null) => {
+    setCurrentPage(page);
+    if (card) {
+      setSelectedCard(card);
+    }
+    window.scrollTo(0, 0);
+  };
+
+  // Skip global layout headers/footers when viewing dashboard
+  if (currentPage === "dashboard") {
+    return (
+      <DashboardPage 
+        onNavigate={handleNavigate} 
+        user={user} 
+        onLogout={handleLogout} 
+      />
+    );
+  }
 
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<ConnectedInteractive />} />
-        <Route path="/skills" element={<BrowseSkills />} />
-      </Routes>
+      <Navbar2 
+        onNavigate={handleNavigate} 
+        currentPage={currentPage} 
+        user={user}
+        onLoginClick={() => setAuthModalOpen(true)}
+        onLogout={handleLogout}
+      />
+      
+      {currentPage === "home" ? (
+        <>
+          <Hero />
+          <CategoryBar onCategoryChange={setSelectedCategory} onSortChange={setSelectedSort} />
+          <SkillCardGrid 
+            selectedCategory={selectedCategory} 
+            selectedSort={selectedSort} 
+            onViewDetails={(card) => handleNavigate("detail", card)} 
+          />
+          <CtaBanner />
+        </>
+      ) : (
+        <SkillDetailsPage 
+          selectedCard={selectedCard} 
+          onNavigate={handleNavigate} 
+          user={user}
+          onLoginClick={() => setAuthModalOpen(true)}
+        />
+      )}
+      
+      <Footer />
+
+      <AuthModal 
+        isOpen={authModalOpen} 
+        onClose={() => setAuthModalOpen(false)} 
+        onLoginSuccess={handleLoginSuccess}
+      />
     </>
   )
 } 

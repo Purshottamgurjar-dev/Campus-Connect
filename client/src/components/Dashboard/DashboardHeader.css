@@ -1,0 +1,166 @@
+/* DashboardHeader.css */
+
+.dashboard-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e2e8f0;
+  box-sizing: border-box;
+  margin-bottom: 32px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Left Section: Search Input */
+.dashboard-header-search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+}
+
+.dashboard-header-search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4b5563; /* Slate grey icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.dashboard-header-search-input {
+  width: 100%;
+  background-color: #f0f4fa; /* Matches periwinkle search input background */
+  border: none;
+  border-radius: 9999px; /* Rounded pill shape */
+  padding: 12px 20px 12px 48px;
+  font-size: 14.5px;
+  color: #1e293b; /* Dark slate text */
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.dashboard-header-search-input::placeholder {
+  color: #6b7280;
+}
+
+.dashboard-header-search-input:focus {
+  background-color: #eef2ff; /* Shifts to soft blue tint */
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+}
+
+/* Right Section: Bell, Gear & Identity Badge */
+.dashboard-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.dashboard-header-icon-btn {
+  background: transparent;
+  border: none;
+  color: #4b5563; /* Icon colors from screenshot */
+  cursor: pointer;
+  padding: 6px;
+  position: relative;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dashboard-header-icon-btn:hover {
+  background-color: rgba(79, 70, 229, 0.05);
+  color: #4f46e5;
+}
+
+/* Red Notification alert circle */
+.dashboard-header-bell-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 7.5px;
+  height: 7.5px;
+  background-color: #ef4444; /* Alert red */
+  border-radius: 50%;
+  border: 1px solid #ffffff;
+}
+
+/* Identity Badge User Profile Details */
+.dashboard-header-profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.dashboard-header-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.dashboard-header-username {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.dashboard-header-major {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Circular profile photo with active outline */
+.dashboard-header-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #4f46e5; /* Main active color outline */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.dashboard-header-avatar:hover {
+  transform: scale(1.05);
+}
+
+.dashboard-header-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive configurations */
+@media (max-width: 768px) {
+  .dashboard-header-container {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 18px;
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+  }
+
+  .dashboard-header-search-wrapper {
+    max-width: 100%;
+  }
+
+  .dashboard-header-actions {
+    justify-content: space-between;
+  }
+}

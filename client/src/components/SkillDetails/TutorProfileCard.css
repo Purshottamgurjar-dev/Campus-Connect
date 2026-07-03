@@ -1,0 +1,181 @@
+/* TutorProfileCard.css */
+
+.tutor-profile-card {
+  background-color: #f0f4fa; /* Soft periwinkle/blue-gray background matching the image */
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 36px;
+  display: flex;
+  gap: 28px;
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  text-align: left;
+  width: 100%;
+}
+
+/* Profile Photo */
+.tutor-profile-photo-wrapper {
+  flex-shrink: 0;
+}
+
+.tutor-profile-photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 16px; /* Rounded square profile avatar */
+  object-fit: cover;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  display: block;
+}
+
+/* Content Details on Right */
+.tutor-profile-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Row: Name, School & Rating tag */
+.tutor-profile-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.tutor-profile-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.tutor-profile-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a; /* Slate-900 */
+  line-height: 1.2;
+}
+
+.tutor-profile-school {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #4f46e5; /* Purple-indigo school label */
+  margin-top: 3px;
+}
+
+/* Rating Pill Tag */
+.tutor-rating-pill {
+  background-color: #ffffff;
+  border-radius: 9999px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.tutor-rating-pill-star {
+  color: #6366f1; /* Star icon color */
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.tutor-rating-pill-val {
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Bio Text */
+.tutor-profile-bio {
+  font-size: 15px;
+  color: #4b5563; /* Slate-600 */
+  line-height: 1.55;
+  margin: 16px 0 20px 0;
+}
+
+/* Teaches Tag chips */
+.tutor-teaches-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.tutor-teaches-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #9ca3af; /* Light uppercase text */
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.tutor-teaches-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tutor-tag {
+  background-color: #ffffff;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  border: 1px solid #e5e7eb;
+}
+
+/* View Profile Button */
+.tutor-profile-btn {
+  align-self: flex-start;
+  background-color: #ffffff;
+  color: #374151;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease, transform 0.1s ease;
+}
+
+.tutor-profile-btn:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.tutor-profile-btn:active {
+  transform: scale(0.97);
+}
+
+/* Responsive configurations */
+@media (max-width: 768px) {
+  .tutor-profile-card {
+    flex-direction: column;
+    padding: 24px;
+    gap: 20px;
+  }
+
+  .tutor-profile-photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .tutor-profile-name {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tutor-profile-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .tutor-rating-pill {
+    align-self: flex-start;
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "campus-connect-root",
+  "version": "1.0.0",
+  "description": "Root workspace runner for CampusConnect frontend and backend services",
+  "scripts": {
+    "start": "npm start --prefix CampusConnect/server",
+    "server": "npm run dev --prefix CampusConnect/server",
+    "client": "npm run dev --prefix client",
+    "seed": "node CampusConnect/server/seed.js"
+  }
+}
