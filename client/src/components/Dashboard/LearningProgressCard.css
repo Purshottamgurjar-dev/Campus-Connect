@@ -1,0 +1,90 @@
+.learning-progress-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.learning-progress-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 24px 0;
+  letter-spacing: -0.3px;
+}
+
+.learning-progress-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.learning-progress-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.learning-progress-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.learning-progress-item-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.learning-progress-item-percentage {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.learning-progress-item-percentage.blue {
+  color: #3b82f6;
+}
+
+.learning-progress-item-percentage.purple {
+  color: #8b5cf6;
+}
+
+.learning-progress-track {
+  height: 8px;
+  background-color: #eff6ff;
+  border-radius: 9999px;
+  width: 100%;
+}
+
+.learning-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.learning-progress-fill.blue {
+  background-color: #3b82f6;
+}
+
+.learning-progress-fill.purple {
+  background-color: #8b5cf6;
+}
+
+.learning-progress-next {
+  font-size: 13px;
+  color: #64748b;
+  font-style: italic;
+  margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  .learning-progress-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}

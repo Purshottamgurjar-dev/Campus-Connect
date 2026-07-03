@@ -16,14 +16,14 @@ function App() {
   
   // Auth state (starts logged in by default with a mock user for easy development)
   const [user, setUser] = useState({
-    id: "mock_user_purshottam",
-    name: "Purshottam",
-    email: "purshottam@college.edu",
+    id: "mock_user_alex",
+    name: "Alex Rivers",
+    email: "alex@stanford.edu",
     college: "Stanford University",
     city: "Stanford",
-    bio: "CS student passionate about UI design and programming.",
-    skillsToTeach: ["UI Design", "Figma"],
-    skillsToLearn: ["Python", "Algorithms"]
+    bio: "CS senior with a passion for web technologies and peer mentorship.",
+    skillsToTeach: ["Python", "Algorithms", "Git Version Control"],
+    skillsToLearn: ["UI Design", "Figma Prototyping"]
   });
   const [authModalOpen, setAuthModalOpen] = useState(false);
 

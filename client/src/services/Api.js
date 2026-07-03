@@ -26,56 +26,132 @@ API.interceptors.request.use(
 
 // --- IN-MEMORY MOCK DATABASE SETUP (LocalStorage backed) ---
 const initMockDB = () => {
-  if (!localStorage.getItem("mock_user")) {
+  if (!localStorage.getItem("mock_user_v3")) {
     const defaultUser = {
-      id: "mock_user_purshottam",
-      name: "Purshottam",
-      email: "purshottam@college.edu",
+      id: "mock_user_alex",
+      name: "Alex Rivers",
+      email: "alex@stanford.edu",
       college: "Stanford University",
       city: "Stanford",
-      bio: "CS student passionate about UI design and programming.",
-      skillsToTeach: ["UI Design", "Figma"],
-      skillsToLearn: ["Python", "Algorithms"]
+      bio: "CS senior with a passion for web technologies and peer mentorship.",
+      skillsToTeach: ["Python", "Algorithms", "Git Version Control"],
+      skillsToLearn: ["UI Design", "Figma Prototyping"]
     };
-    localStorage.setItem("mock_user", JSON.stringify(defaultUser));
+    localStorage.setItem("mock_user_v3", JSON.stringify(defaultUser));
   }
 
-  if (!localStorage.getItem("mock_skills")) {
-    // Add _id field to match DB style
-    const initialSkills = skillsData.map(s => ({
-      ...s,
-      _id: s.id.toString(),
-      userId: s.id.toString() // simulated owner id
-    }));
-    localStorage.setItem("mock_skills", JSON.stringify(initialSkills));
-  }
-
-  if (!localStorage.getItem("mock_bookings")) {
-    const defaultBookings = [
+  if (!localStorage.getItem("mock_skills_v3")) {
+    const initialSkills = [
       {
-        _id: "booking_1",
-        skillId: "3", // Advanced Calculus Prep
-        tutorId: { _id: "3", name: "Jordan Smith" },
-        studentId: { _id: "mock_user_purshottam", name: "Purshottam" },
-        subject: "Advanced Calculus Prep",
-        date: "2026-07-15",
-        time: "Afternoon (12:00 PM - 4:00 PM)",
-        message: "Need help preparing for the upcoming midterms.",
-        status: "Confirmed"
+        _id: "skill_alex_1",
+        userId: "mock_user_alex",
+        name: "Alex Rivers",
+        school: "Stanford University",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
+        tutorAvatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=300",
+        category: "Math",
+        categoryClass: "math",
+        title: "Advanced Calculus",
+        description: "Assisting with multivariate calculus, differential equations, and series convergence tests.",
+        availability: "Mon-Wed Evenings",
+        engagement: "12 Requests Received",
+        status: "Active",
+        createdAt: "2024-01-12T12:00:00.000Z",
+        rating: 4.9,
+        reviews: 12,
+        reviewsList: []
       },
       {
-        _id: "booking_2",
-        skillId: "1", // Python for Beginners
-        tutorId: { _id: "1", name: "Alex Rivera" },
-        studentId: { _id: "mock_user_purshottam", name: "Purshottam" },
-        subject: "Python for Beginners",
-        date: "2026-07-22",
-        time: "Morning (8:00 AM - 12:00 PM)",
-        message: "Looking forward to learning variables and functions.",
-        status: "Pending"
+        _id: "skill_alex_2",
+        userId: "mock_user_alex",
+        name: "Alex Rivers",
+        school: "Stanford University",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
+        tutorAvatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=300",
+        category: "Design",
+        categoryClass: "design",
+        title: "UI Design Fundamentals",
+        description: "Introduction to Figma, typography scales, and grid systems for digital products.",
+        availability: "Flexible",
+        engagement: "8 Requests Received",
+        status: "Active",
+        createdAt: "2024-02-05T12:00:00.000Z",
+        rating: 4.8,
+        reviews: 8,
+        reviewsList: []
+      },
+      {
+        _id: "skill_alex_3",
+        userId: "mock_user_alex",
+        name: "Alex Rivers",
+        school: "Stanford University",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150",
+        tutorAvatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=300",
+        category: "Physics",
+        categoryClass: "physics",
+        title: "Quantum Mechanics I",
+        description: "Basic wave functions, Schrodinger equation, and particle in a box theory.",
+        availability: "Not set",
+        engagement: "0 Requests",
+        status: "Draft",
+        createdAt: "2024-03-01T12:00:00.000Z",
+        rating: 5.0,
+        reviews: 0,
+        reviewsList: []
       }
     ];
-    localStorage.setItem("mock_bookings", JSON.stringify(defaultBookings));
+    localStorage.setItem("mock_skills_v3", JSON.stringify(initialSkills));
+  }
+
+  if (!localStorage.getItem("mock_bookings_v3")) {
+    const defaultBookings = [
+      {
+        _id: "req_1",
+        skillId: "skill_react",
+        studentId: "mock_user_alex",
+        tutorId: { _id: "tutor_alex", name: "Alex Rivers", school: "Stanford University" },
+        subject: "React.js Basics",
+        date: "Oct 28, 2024",
+        time: "4:00 PM",
+        message: "Hey Alex, I'd love to learn more about hooks and how to handle complex state in a large-scale React application...",
+        status: "Accepted"
+      },
+      {
+        _id: "req_2",
+        skillId: "skill_alex_1",
+        studentId: "mock_user_alex",
+        tutorId: { _id: "tutor_sarah", name: "Sarah Chen", school: "UC Berkeley" },
+        subject: "Advanced Calculus",
+        date: "Nov 02, 2024",
+        time: "2:30 PM",
+        message: "Struggling with multi-variable integration and Green's Theorem. Looking for a step-by-step walkthrough...",
+        status: "Pending"
+      },
+      {
+        _id: "req_3",
+        skillId: "skill_alex_2",
+        studentId: "mock_user_alex",
+        tutorId: { _id: "tutor_jordan", name: "Jordan Smith", school: "UT Austin" },
+        subject: "UI Design Fundamentals",
+        date: "Oct 20, 2024",
+        time: "11:00 AM",
+        message: "Would love to go over dashboard layout grids and styling typography hierarchies.",
+        status: "Completed"
+      },
+      {
+        _id: "req_4",
+        skillId: "skill_spanish",
+        studentId: "mock_user_alex",
+        tutorId: { _id: "tutor_elena", name: "Elena Rodriguez", school: "NYU" },
+        subject: "Conversational Spanish",
+        date: "Oct 15, 2024",
+        time: "1:00 PM",
+        message: "Practice Spanish conversation for my study abroad interview next month.",
+        status: "Declined",
+        tutorNote: "Sorry, I won't be available during that time due to midterms. Let me know if you can reschedule for next week!"
+      }
+    ];
+    localStorage.setItem("mock_bookings_v3", JSON.stringify(defaultBookings));
   }
 };
 
@@ -84,12 +160,12 @@ if (USE_MOCK) {
 }
 
 // Helper fetchers
-const getMockUser = () => JSON.parse(localStorage.getItem("mock_user"));
-const saveMockUser = (user) => localStorage.setItem("mock_user", JSON.stringify(user));
-const getMockSkills = () => JSON.parse(localStorage.getItem("mock_skills"));
-const saveMockSkills = (skills) => localStorage.setItem("mock_skills", JSON.stringify(skills));
-const getMockBookings = () => JSON.parse(localStorage.getItem("mock_bookings"));
-const saveMockBookings = (bookings) => localStorage.setItem("mock_bookings", JSON.stringify(bookings));
+const getMockUser = () => JSON.parse(localStorage.getItem("mock_user_v3"));
+const saveMockUser = (user) => localStorage.setItem("mock_user_v3", JSON.stringify(user));
+const getMockSkills = () => JSON.parse(localStorage.getItem("mock_skills_v3"));
+const saveMockSkills = (skills) => localStorage.setItem("mock_skills_v3", JSON.stringify(skills));
+const getMockBookings = () => JSON.parse(localStorage.getItem("mock_bookings_v3"));
+const saveMockBookings = (bookings) => localStorage.setItem("mock_bookings_v3", JSON.stringify(bookings));
 
 
 // --- API EXPORTS (Switches automatically based on USE_MOCK) ---

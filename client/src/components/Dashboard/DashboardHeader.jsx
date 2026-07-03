@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import "./DashboardHeader.css";
 
-export default function DashboardHeader({ profileName = "purshottam", onProfileClick }) {
+export default function DashboardHeader({ profileName = "purshottam", activeItem = "Overview", onProfileClick }) {
   const [searchVal, setSearchVal] = useState("");
   const [hasUnreadNotifications, setHasUnreadNotifications] = useState(true);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     console.log("Searching for:", searchVal);
+  };
+
+  const getPlaceholderText = () => {
+    if (activeItem === "My Requests") return "Search my requests...";
+    if (activeItem === "My Skills") return "Search my skills or sessions...";
+    return "Search for skills, tutors, or sessions...";
   };
 
   return (
@@ -23,7 +29,7 @@ export default function DashboardHeader({ profileName = "purshottam", onProfileC
         <input
           type="text"
           className="dashboard-header-search-input"
-          placeholder="Search for skills, tutors, or sessions..."
+          placeholder={getPlaceholderText()}
           value={searchVal}
           onChange={(e) => setSearchVal(e.target.value)}
         />
@@ -61,11 +67,11 @@ export default function DashboardHeader({ profileName = "purshottam", onProfileC
         >
           <div className="dashboard-header-user-info">
             <span className="dashboard-header-username">{profileName}</span>
-            <span className="dashboard-header-major">Computer Science</span>
+            <span className="dashboard-header-major">Senior Student</span>
           </div>
           <div className="dashboard-header-avatar">
             <img
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150"
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150"
               alt={profileName}
               className="dashboard-header-avatar-img"
             />

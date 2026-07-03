@@ -77,9 +77,21 @@ export default function Sidebar({ activeItem = "Overview", onItemClick, isOpen =
   return (
     <aside className={`dashboard-sidebar ${isOpen ? "open" : ""}`}>
       {/* Brand logo details */}
-      <div className="sidebar-brand">
-        <span className="sidebar-logo-text">CampusConnect</span>
-        <span className="sidebar-logo-sub">Academic Peer Network</span>
+      <div className="sidebar-brand" style={{ padding: "32px 24px 16px 24px" }}>
+        <span className="sidebar-logo-text" style={{ color: "#1e3a8a", fontSize: "24px", fontWeight: "700", letterSpacing: "-0.5px" }}>CampusConnect</span>
+      </div>
+
+      {/* User Profile Block */}
+      <div className="sidebar-profile-block" style={{ display: "flex", alignItems: "center", gap: "14px", padding: "12px 24px", marginBottom: "24px" }}>
+        <img 
+          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150" 
+          alt="Alex Rivers" 
+          style={{ width: "48px", height: "48px", borderRadius: "50%", objectFit: "cover" }} 
+        />
+        <div style={{ display: "flex", flexDirection: "column", textAlign: "left" }}>
+          <span style={{ fontSize: "16px", fontWeight: "600", color: "#1e293b" }}>Alex Rivers</span>
+          <span style={{ fontSize: "13px", color: "#64748b", fontWeight: "500", marginTop: "2px" }}>CS Senior</span>
+        </div>
       </div>
 
       {/* Menu links list */}
