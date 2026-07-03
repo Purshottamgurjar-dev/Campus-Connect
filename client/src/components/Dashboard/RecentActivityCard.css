@@ -1,0 +1,92 @@
+.recent-activity-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.recent-activity-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 24px 0;
+  letter-spacing: -0.3px;
+}
+
+.recent-activity-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 16px;
+}
+
+.timeline-indicator-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.timeline-icon-wrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.timeline-icon-wrapper.accept {
+  background-color: #e0e7ff;
+  color: #4f46e5;
+}
+
+.timeline-icon-wrapper.review {
+  background-color: #f3e8ff;
+  color: #7928ca;
+}
+
+.timeline-line {
+  width: 2px;
+  background-color: #e2e8f0;
+  flex-grow: 1;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.timeline-content-col {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 28px;
+  text-align: left;
+}
+
+/* Remove padding bottom for the last timeline content item */
+.timeline-item:last-child .timeline-content-col {
+  padding-bottom: 0;
+}
+
+.timeline-text {
+  font-size: 15px;
+  color: #1e293b;
+  line-height: 1.5;
+}
+
+.timeline-text strong {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.timeline-time {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 4px;
+}

@@ -29,9 +29,8 @@ export default function Sidebar({ activeItem = "Overview", onItemClick, isOpen =
       name: "My Requests",
       icon: (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-          <line x1="12" y1="11" x2="12" y2="17"></line>
-          <polyline points="9 14 12 11 15 14"></polyline>
+          <circle cx="12" cy="5" r="3" />
+          <path d="M12 8v7M9 11h6M10 21l2-6 2 6" />
         </svg>
       )
     },
@@ -39,9 +38,7 @@ export default function Sidebar({ activeItem = "Overview", onItemClick, isOpen =
       name: "Incoming Requests",
       icon: (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-          <line x1="12" y1="17" x2="12" y2="11"></line>
-          <polyline points="9 14 12 17 15 14"></polyline>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07M12 12a1 1 0 1 1-1-1 1 1 0 0 1 1 1z" />
         </svg>
       )
     },
@@ -77,9 +74,15 @@ export default function Sidebar({ activeItem = "Overview", onItemClick, isOpen =
   return (
     <aside className={`dashboard-sidebar ${isOpen ? "open" : ""}`}>
       {/* Brand logo details */}
-      <div className="sidebar-brand">
-        <span className="sidebar-logo-text">CampusConnect</span>
-        <span className="sidebar-logo-sub">Academic Peer Network</span>
+      <div className="sidebar-brand" style={{ padding: "32px 24px 24px 24px", textAlign: "left" }}>
+        <div style={{ display: "flex", alignItems: "center", marginBottom: "4px" }}>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: "10px" }}>
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+            <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+          </svg>
+          <span className="sidebar-logo-text" style={{ color: "#4f46e5", fontSize: "22px", fontWeight: "700", letterSpacing: "-0.5px" }}>CampusConnect</span>
+        </div>
+        <span className="sidebar-logo-sub" style={{ fontSize: "12px", color: "#64748b", fontWeight: "600", paddingLeft: "36px", display: "block" }}>Peer Learning Hub</span>
       </div>
 
       {/* Menu links list */}
