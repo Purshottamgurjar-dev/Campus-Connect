@@ -36,6 +36,9 @@ export default function DashboardPage({ onNavigate, user, onLogout }) {
   const [newBio, setNewBio] = useState("");
   const [newTeachesRaw, setNewTeachesRaw] = useState("");
   const [submittingSkill, setSubmittingSkill] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [incomingFilter, setIncomingFilter] = useState("All");
+  const [incomingSearch, setIncomingSearch] = useState("");
 
   // Profile Edit states
   const [profileName, setProfileName] = useState(user?.name || "");
@@ -128,7 +131,8 @@ export default function DashboardPage({ onNavigate, user, onLogout }) {
         tutorTeaches: teachesArray
       });
 
-      alert("New skill listed successfully!");
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 5000);
       setSkillModalOpen(false);
       
       // Reset form fields
@@ -913,64 +917,398 @@ export default function DashboardPage({ onNavigate, user, onLogout }) {
 
             {/* View 4: Incoming Requests */}
             {activeItem === "Incoming Requests" && (
-              <div className="dashboard-section-card">
-                <div className="dashboard-section-header">
-                  <h2 className="dashboard-section-title">Session Requests Received</h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: "32px", width: "100%" }}>
+                
+                {/* Header Row */}
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "16px" }}>
+                  <div style={{ textAlign: "left" }}>
+                    <h1 style={{ fontSize: "28px", fontWeight: "700", color: "#0f172a", margin: 0 }}>Incoming Requests</h1>
+                    <p style={{ color: "#64748b", fontSize: "15px", margin: "6px 0 0 0" }}>Students who want to learn from you will appear here.</p>
+                  </div>
+                  
+                  {/* Right Header Side: Avatar group & Share Button */}
+                  <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                    <div style={{ display: "flex", position: "relative", height: "32px", width: "70px" }}>
+                      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px solid #ffffff", position: "absolute", left: 0, zIndex: 2, objectFit: "cover" }} alt="Chloe" />
+                      <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150" style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px solid #ffffff", position: "absolute", left: "14px", zIndex: 1, objectFit: "cover" }} alt="James" />
+                      <div style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px solid #ffffff", backgroundColor: "#dbeafe", color: "#1e3a8a", fontSize: "11px", fontWeight: "700", display: "flex", alignItems: "center", justifyContent: "center", position: "absolute", left: "28px", zIndex: 0 }}>+5</div>
+                    </div>
+                    <button 
+                      onClick={() => alert("Profile link copied to clipboard!")}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                        backgroundColor: "#4f46e5",
+                        color: "#ffffff",
+                        border: "none",
+                        borderRadius: "9999px",
+                        padding: "10px 20px",
+                        fontSize: "13px",
+                        fontWeight: "600",
+                        cursor: "pointer",
+                        boxShadow: "0 4px 6px -1px rgba(79, 70, 229, 0.2)"
+                      }}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                      </svg>
+                      <span>Share Profile</span>
+                    </button>
+                  </div>
                 </div>
+
+                {/* Stats Cards Row */}
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "24px" }}>
+                  {/* Card 1: Pending */}
+                  <div style={{ backgroundColor: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "20px", padding: "24px", textAlign: "left", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+                    <span style={{ fontSize: "11px", fontWeight: "700", color: "#64748b", letterSpacing: "0.5px" }}>PENDING REQUESTS</span>
+                    <div style={{ display: "flex", alignItems: "baseline", gap: "10px", marginTop: "8px" }}>
+                      <span style={{ fontSize: "32px", fontWeight: "800", color: "#0f172a" }}>{pendingRequestsCount}</span>
+                      <span style={{ color: "#ef4444", fontSize: "14px", fontWeight: "700", marginLeft: "6px" }}>
+                        ! Immediate
+                      </span>
+                    </div>
+                  </div>
+                  {/* Card 2: Accepted */}
+                  <div style={{ backgroundColor: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "20px", padding: "24px", textAlign: "left", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+                    <span style={{ fontSize: "11px", fontWeight: "700", color: "#64748b", letterSpacing: "0.5px" }}>ACCEPTED THIS MONTH</span>
+                    <div style={{ display: "flex", alignItems: "baseline", gap: "10px", marginTop: "8px" }}>
+                      <span style={{ fontSize: "32px", fontWeight: "800", color: "#0f172a" }}>12</span>
+                      <span style={{ backgroundColor: "#eff3fa", color: "#64748b", fontSize: "12px", fontWeight: "700", padding: "4px 10px", borderRadius: "9999px" }}>
+                        +20%
+                      </span>
+                    </div>
+                  </div>
+                  {/* Card 3: Completed */}
+                  <div style={{ backgroundColor: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "20px", padding: "24px", textAlign: "left", boxShadow: "0 2px 4px rgba(0,0,0,0.02)" }}>
+                    <span style={{ fontSize: "11px", fontWeight: "700", color: "#64748b", letterSpacing: "0.5px" }}>COMPLETED SESSIONS</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "8px" }}>
+                      <span style={{ fontSize: "32px", fontWeight: "800", color: "#0f172a" }}>48</span>
+                      <span style={{ backgroundColor: "#7c3aed", color: "#ffffff", width: "20px", height: "20px", borderRadius: "50%", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "11px" }}>
+                        ★
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Filters Capsule and Search Row */}
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "16px" }}>
+                  {/* Segmented Control Capsule */}
+                  <div style={{ display: "flex", gap: "6px", backgroundColor: "#eff3fa", padding: "6px", borderRadius: "9999px" }}>
+                    {["All", "Pending", "Active"].map((tab) => {
+                      const isActive = incomingFilter === tab;
+                      return (
+                        <button
+                          key={tab}
+                          onClick={() => setIncomingFilter(tab)}
+                          style={{
+                            padding: "8px 24px",
+                            borderRadius: "9999px",
+                            border: "none",
+                            backgroundColor: isActive ? "#ffffff" : "transparent",
+                            color: isActive ? "#4f46e5" : "#475569",
+                            fontWeight: isActive ? "700" : "600",
+                            fontSize: "14px",
+                            cursor: "pointer",
+                            boxShadow: isActive ? "0 2px 4px rgba(0,0,0,0.06)" : "none",
+                            transition: "all 0.2s"
+                          }}
+                        >
+                          {tab}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Search box */}
+                  <div style={{ position: "relative" }}>
+                    <input 
+                      type="text"
+                      placeholder="Search requests..."
+                      value={incomingSearch}
+                      onChange={(e) => setIncomingSearch(e.target.value)}
+                      style={{
+                        padding: "10px 16px 10px 40px",
+                        borderRadius: "9999px",
+                        border: "1px solid #cbd5e1",
+                        fontSize: "14px",
+                        outline: "none",
+                        width: "240px",
+                        backgroundColor: "#f8fafc"
+                      }}
+                    />
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2.5" style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)" }}>
+                      <circle cx="11" cy="11" r="8"></circle>
+                      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Vertical list of request cards */}
                 {myReceivedRequests.length === 0 ? (
                   <p style={{ color: "#6b7280" }}>You haven't received any requests for your skill listings yet.</p>
                 ) : (
-                  <div className="dashboard-table-container">
-                    <table className="dashboard-table">
-                      <thead>
-                        <tr>
-                          <th>Subject</th>
-                          <th>Student</th>
-                          <th>Preferred Date</th>
-                          <th>Preferred Time</th>
-                          <th>Message</th>
-                          <th>Status</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {myReceivedRequests.map(req => {
-                          const studentName = req.studentId?.name || "Student";
-                          return (
-                            <tr key={req._id}>
-                              <td style={{ fontWeight: "600" }}>{req.subject}</td>
-                              <td>{studentName}</td>
-                              <td>{req.date}</td>
-                              <td>{req.time}</td>
-                              <td><span style={{ fontSize: "12px", color: "#64748b" }}>{req.message || "-"}</span></td>
-                              <td>
-                                <span className={`status-badge ${req.status.toLowerCase()}`}>
-                                  {req.status}
-                                </span>
-                              </td>
-                              <td style={{ display: "flex", gap: "6px" }}>
-                                {req.status === "Pending" && (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                    {myReceivedRequests
+                      .filter(req => {
+                        const statusMatch = 
+                          incomingFilter === "All" ||
+                          (incomingFilter === "Pending" && req.status === "Pending") ||
+                          (incomingFilter === "Active" && req.status === "Accepted");
+                        
+                        const searchMatch = 
+                          !incomingSearch ||
+                          req.subject.toLowerCase().includes(incomingSearch.toLowerCase()) ||
+                          (req.studentId?.name || "").toLowerCase().includes(incomingSearch.toLowerCase());
+                        
+                        return statusMatch && searchMatch;
+                      })
+                      .map((req) => {
+                        const studentName = req.studentId?.name || "Student";
+                        const studentSchool = req.studentId?.school || "Stanford University";
+                        const studentAvatar = req.studentId?.avatar || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150";
+
+                        // Dynamic SVG Icon based on Subject
+                        let subjectIcon = (
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5"></path>
+                            <path d="M2 12l10 5 10-5"></path>
+                          </svg>
+                        );
+                        let iconBgColor = "#e0e7ff";
+                        
+                        const subj = req.subject.toLowerCase();
+                        if (subj.includes("react") || subj.includes("code") || subj.includes("program")) {
+                          subjectIcon = (
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                              <polyline points="16 18 22 12 16 6"></polyline>
+                              <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                          );
+                          iconBgColor = "#eff6ff";
+                        } else if (subj.includes("calculus") || subj.includes("math")) {
+                          subjectIcon = (
+                            <span style={{ fontSize: "14px", fontWeight: "700", fontFamily: "serif", color: "#6366f1" }}>Σ</span>
+                          );
+                          iconBgColor = "#f5f3ff";
+                        } else if (subj.includes("design") || subj.includes("ui") || subj.includes("figma")) {
+                          subjectIcon = (
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                              <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"></path>
+                              <path d="M12 8A2 2 0 1 0 12 4A2 2 0 1 0 12 8Z"></path>
+                              <path d="M6 12A2 2 0 1 0 6 8A2 2 0 1 0 6 12Z"></path>
+                            </svg>
+                          );
+                          iconBgColor = "#f5f3ff";
+                        }
+
+                        return (
+                          <div
+                            key={req._id}
+                            style={{
+                              backgroundColor: "#ffffff",
+                              border: "1px solid #e2e8f0",
+                              borderRadius: "24px",
+                              padding: "28px",
+                              boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.02)",
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "space-between",
+                              textAlign: "left",
+                              borderLeft: req.status === "Pending" ? "6px solid #f59e0b" : "6px solid #10b981",
+                              transition: "all 0.2s ease"
+                            }}
+                          >
+                            <div>
+                              {/* Header Profile Row */}
+                              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
+                                <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+                                  <img 
+                                    src={studentAvatar} 
+                                    alt={studentName}
+                                    style={{ width: "60px", height: "60px", borderRadius: "16px", objectFit: "cover", flexShrink: 0 }}
+                                  />
+                                  
+                                  <div>
+                                    <h4 style={{ fontSize: "18px", fontWeight: "700", color: "#0f172a", margin: 0 }}>
+                                      {studentName}
+                                    </h4>
+                                    <span style={{ fontSize: "14px", color: "#64748b", display: "block", marginTop: "2px" }}>
+                                      {studentSchool}
+                                    </span>
+                                    
+                                    {/* Subject Row details */}
+                                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "6px" }}>
+                                      <div style={{
+                                        backgroundColor: iconBgColor,
+                                        width: "24px",
+                                        height: "24px",
+                                        borderRadius: "6px",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        color: "#4f46e5"
+                                      }}>
+                                        {subjectIcon}
+                                      </div>
+                                      <span style={{ fontSize: "13.5px", fontWeight: "600", color: "#4f46e5" }}>
+                                        {req.subject} <span style={{ color: "#64748b", fontWeight: "500" }}>({req.category || "Coding"})</span>
+                                      </span>
+                                      <span style={{ color: "#cbd5e1" }}>•</span>
+                                      <div style={{ display: "flex", alignItems: "center", gap: "4px", color: "#64748b", fontSize: "13px", fontWeight: "500" }}>
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                          <line x1="16" y1="2" x2="16" y2="6"></line>
+                                          <line x1="8" y1="2" x2="8" y2="6"></line>
+                                          <line x1="3" y1="10" x2="21" y2="10"></line>
+                                        </svg>
+                                        <span>{req.date} - {req.time}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {/* Status badge */}
+                                {req.status === "Pending" ? (
+                                  <span style={{ backgroundColor: "#fef3c7", color: "#d97706", fontSize: "12px", fontWeight: "700", padding: "6px 12px", borderRadius: "9999px", display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                                    <span style={{ width: "6px", height: "6px", backgroundColor: "#d97706", borderRadius: "50%" }}></span>
+                                    Pending Response
+                                  </span>
+                                ) : (
+                                  <span style={{ backgroundColor: "#dcfce7", color: "#15803d", fontSize: "12px", fontWeight: "700", padding: "6px 12px", borderRadius: "9999px", display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                                    <span style={{ width: "6px", height: "6px", backgroundColor: "#15803d", borderRadius: "50%" }}></span>
+                                    Accepted
+                                  </span>
+                                )}
+                              </div>
+
+                              {/* Message Quote Box (only for pending status) */}
+                              {req.status === "Pending" && req.message && (
+                                <div style={{
+                                  backgroundColor: "#f0f6ff",
+                                  borderRadius: "14px",
+                                  padding: "16px 20px",
+                                  marginTop: "16px",
+                                  color: "#1e293b",
+                                  fontSize: "14px",
+                                  lineHeight: "1.6",
+                                  fontStyle: "italic",
+                                  textAlign: "left"
+                                }}>
+                                  "{req.message}"
+                                </div>
+                              )}
+                            </div>
+
+                            {/* Buttons row */}
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "24px", width: "100%" }}>
+                              <div style={{ display: "flex", gap: "12px" }}>
+                                {req.status === "Pending" ? (
                                   <>
                                     <button 
-                                      className="dashboard-btn-success"
-                                      onClick={() => handleUpdateStatus(req._id, "Confirmed")}
+                                      onClick={() => handleUpdateStatus(req._id, "Accepted")}
+                                      style={{
+                                        backgroundColor: "#4f46e5",
+                                        color: "#ffffff",
+                                        border: "none",
+                                        borderRadius: "12px",
+                                        padding: "12px 24px",
+                                        fontWeight: "600",
+                                        fontSize: "14px",
+                                        cursor: "pointer",
+                                        boxShadow: "0 4px 6px -1px rgba(79, 70, 229, 0.2)"
+                                      }}
                                     >
-                                      Accept
+                                      Accept Request
                                     </button>
                                     <button 
-                                      className="dashboard-btn-danger"
-                                      onClick={() => handleUpdateStatus(req._id, "Cancelled")}
+                                      onClick={() => handleUpdateStatus(req._id, "Declined")}
+                                      style={{
+                                        backgroundColor: "#ffffff",
+                                        border: "1px solid #cbd5e1",
+                                        color: "#64748b",
+                                        borderRadius: "12px",
+                                        padding: "12px 24px",
+                                        fontWeight: "600",
+                                        fontSize: "14px",
+                                        cursor: "pointer",
+                                        transition: "all 0.2s"
+                                      }}
+                                      onMouseOver={(e) => e.currentTarget.style.backgroundColor = "#f8fafc"}
+                                      onMouseOut={(e) => e.currentTarget.style.backgroundColor = "#ffffff"}
                                     >
                                       Decline
                                     </button>
                                   </>
+                                ) : (
+                                  <>
+                                    <button 
+                                      onClick={() => handleUpdateStatus(req._id, "Completed")}
+                                      style={{
+                                        backgroundColor: "#475569",
+                                        color: "#ffffff",
+                                        border: "none",
+                                        borderRadius: "12px",
+                                        padding: "12px 24px",
+                                        fontWeight: "600",
+                                        fontSize: "14px",
+                                        cursor: "pointer"
+                                      }}
+                                    >
+                                      Mark as Completed
+                                    </button>
+                                    <button 
+                                      onClick={() => alert("Reschedule request initiated.")}
+                                      style={{
+                                        backgroundColor: "#ffffff",
+                                        border: "1px solid #cbd5e1",
+                                        color: "#64748b",
+                                        borderRadius: "12px",
+                                        padding: "12px 24px",
+                                        fontWeight: "600",
+                                        fontSize: "14px",
+                                        cursor: "pointer",
+                                        transition: "all 0.2s"
+                                      }}
+                                      onMouseOver={(e) => e.currentTarget.style.backgroundColor = "#f8fafc"}
+                                      onMouseOut={(e) => e.currentTarget.style.backgroundColor = "#ffffff"}
+                                    >
+                                      Reschedule
+                                    </button>
+                                  </>
                                 )}
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
+                              </div>
+
+                              <button 
+                                onClick={() => alert(`Viewing profile details for ${studentName}`)}
+                                style={{
+                                  backgroundColor: "transparent",
+                                  border: "none",
+                                  color: "#4f46e5",
+                                  fontWeight: "700",
+                                  fontSize: "14px",
+                                  cursor: "pointer",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: "4px"
+                                }}
+                              >
+                                <span>View Profile</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                                  <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
                   </div>
                 )}
               </div>
@@ -1155,99 +1493,259 @@ export default function DashboardPage({ onNavigate, user, onLogout }) {
 
       {/* Modal dialog for Listing a New Skill */}
       {skillModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h3 style={{ margin: "0 0 20px 0", fontSize: "20px", fontWeight: "700", color: "#0f172a", textAlign: "left" }}>List a New Skill on Campus</h3>
+        <div className="modal-overlay" style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: "rgba(15, 23, 42, 0.4)",
+          backdropFilter: "blur(4px)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 9999
+        }}>
+          <div className="modal-content" style={{
+            backgroundColor: "#ffffff",
+            borderRadius: "24px",
+            width: "100%",
+            maxWidth: "520px",
+            overflow: "hidden",
+            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+            border: "1px solid #f1f5f9"
+          }}>
+            {/* Modal Header */}
+            <div style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "24px 28px",
+              borderBottom: "1px solid #f1f5f9"
+            }}>
+              <h3 style={{ margin: 0, fontSize: "20px", fontWeight: "700", color: "#0f172a" }}>Create New Listing</h3>
+              <button 
+                onClick={() => setSkillModalOpen(false)}
+                style={{
+                  border: "none",
+                  backgroundColor: "transparent",
+                  color: "#94a3b8",
+                  cursor: "pointer",
+                  padding: "4px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "50%",
+                  transition: "all 0.2s"
+                }}
+                onMouseOver={(e) => e.currentTarget.style.backgroundColor = "#f1f5f9"}
+                onMouseOut={(e) => e.currentTarget.style.backgroundColor = "transparent"}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            {/* Modal Form */}
             <form onSubmit={handleCreateSkill}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                <div className="form-group">
-                  <label htmlFor="new-skill-title">Listing Title</label>
+              <div style={{ padding: "28px", display: "flex", flexDirection: "column", gap: "20px" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px", textAlign: "left" }}>
+                  <label htmlFor="new-skill-title" style={{ fontSize: "13px", fontWeight: "600", color: "#475569" }}>Skill Title</label>
                   <input 
                     id="new-skill-title"
                     type="text" 
-                    className="form-input"
-                    placeholder="e.g. Intro to Figma Prototyping"
+                    style={{
+                      padding: "14px 18px",
+                      borderRadius: "14px",
+                      border: "1px solid #cbd5e1",
+                      fontSize: "14px",
+                      color: "#1e293b",
+                      outline: "none",
+                      width: "100%",
+                      boxSizing: "border-box"
+                    }}
+                    placeholder="e.g., Intro to Linear Algebra, UX Design Principles"
                     value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)}
                     required
                   />
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="new-skill-category">Skill Category</label>
-                  <select 
-                    id="new-skill-category"
-                    className="form-input"
-                    value={newCategory}
-                    onChange={(e) => setNewCategory(e.target.value)}
-                  >
-                    <option value="Coding">Coding</option>
-                    <option value="Math">Math</option>
-                    <option value="Design">Design</option>
-                    <option value="Languages">Languages</option>
-                    <option value="Music">Music</option>
-                    <option value="Exam Prep">Exam Prep</option>
-                  </select>
+                <div style={{ display: "flex", gap: "16px" }}>
+                  <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "8px", textAlign: "left" }}>
+                    <label htmlFor="new-skill-category" style={{ fontSize: "13px", fontWeight: "600", color: "#475569" }}>Category</label>
+                    <select 
+                      id="new-skill-category"
+                      style={{
+                        padding: "14px 18px",
+                        borderRadius: "14px",
+                        border: "1px solid #cbd5e1",
+                        fontSize: "14px",
+                        color: "#1e293b",
+                        backgroundColor: "#ffffff",
+                        outline: "none",
+                        width: "100%",
+                        boxSizing: "border-box",
+                        cursor: "pointer"
+                      }}
+                      value={newCategory}
+                      onChange={(e) => setNewCategory(e.target.value)}
+                    >
+                      <option value="Coding">Coding</option>
+                      <option value="Math">Math</option>
+                      <option value="Design">Design</option>
+                      <option value="Languages">Languages</option>
+                      <option value="Music">Music</option>
+                      <option value="Exam Prep">Exam Prep</option>
+                    </select>
+                  </div>
+
+                  <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "8px", textAlign: "left" }}>
+                    <label htmlFor="new-skill-avail" style={{ fontSize: "13px", fontWeight: "600", color: "#475569" }}>Availability</label>
+                    <input 
+                      id="new-skill-avail"
+                      type="text" 
+                      style={{
+                        padding: "14px 18px",
+                        borderRadius: "14px",
+                        border: "1px solid #cbd5e1",
+                        fontSize: "14px",
+                        color: "#1e293b",
+                        outline: "none",
+                        width: "100%",
+                        boxSizing: "border-box"
+                      }}
+                      placeholder="e.g., Weekends, Even"
+                      value={newAvailability}
+                      onChange={(e) => setNewAvailability(e.target.value)}
+                    />
+                  </div>
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="new-skill-desc">Description</label>
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px", textAlign: "left" }}>
+                  <label htmlFor="new-skill-desc" style={{ fontSize: "13px", fontWeight: "600", color: "#475569" }}>Description</label>
                   <textarea 
                     id="new-skill-desc"
-                    className="form-input" 
-                    style={{ height: "80px", resize: "none", fontFamily: "inherit" }}
-                    placeholder="Describe what you will teach, session formats, etc."
+                    style={{
+                      padding: "14px 18px",
+                      borderRadius: "14px",
+                      border: "1px solid #cbd5e1",
+                      fontSize: "14px",
+                      color: "#1e293b",
+                      outline: "none",
+                      height: "120px",
+                      resize: "none",
+                      fontFamily: "inherit",
+                      width: "100%",
+                      boxSizing: "border-box",
+                      lineHeight: "1.6"
+                    }}
+                    placeholder="Tell other students what you can help them with, your experience level, and how you typically structured a peer session..."
                     value={newDesc}
                     onChange={(e) => setNewDesc(e.target.value)}
                     required
                   ></textarea>
                 </div>
+              </div>
 
-                <div className="form-group">
-                  <label htmlFor="new-skill-avail">Availability</label>
-                  <input 
-                    id="new-skill-avail"
-                    type="text" 
-                    className="form-input"
-                    placeholder="e.g. Available Weekends / Mon-Wed Evenings"
-                    value={newAvailability}
-                    onChange={(e) => setNewAvailability(e.target.value)}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="new-skill-bio">Bio (specifically for this skill)</label>
-                  <textarea 
-                    id="new-skill-bio"
-                    className="form-input" 
-                    style={{ height: "60px", resize: "none", fontFamily: "inherit" }}
-                    placeholder="Describe your qualifications for teaching this skill..."
-                    value={newBio}
-                    onChange={(e) => setNewBio(e.target.value)}
-                  ></textarea>
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="new-skill-teaches">Specific topics covered (comma separated)</label>
-                  <input 
-                    id="new-skill-teaches"
-                    type="text" 
-                    className="form-input"
-                    placeholder="e.g. Auto-layout, Components, Interactive States"
-                    value={newTeachesRaw}
-                    onChange={(e) => setNewTeachesRaw(e.target.value)}
-                  />
-                </div>
-
-                <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px", marginTop: "10px" }}>
-                  <button className="dashboard-btn-secondary" type="button" onClick={() => setSkillModalOpen(false)}>Cancel</button>
-                  <button className="dashboard-btn-primary" type="submit" disabled={submittingSkill}>
-                    {submittingSkill ? "Listing..." : "Publish Listing"}
-                  </button>
-                </div>
+              {/* Modal Footer */}
+              <div style={{
+                backgroundColor: "#f8fafc",
+                borderTop: "1px solid #f1f5f9",
+                padding: "20px 28px",
+                display: "flex",
+                justifyContent: "flex-end",
+                gap: "16px"
+              }}>
+                <button 
+                  type="button" 
+                  onClick={() => setSkillModalOpen(false)}
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    color: "#64748b",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                    cursor: "pointer",
+                    padding: "10px 16px"
+                  }}
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit" 
+                  disabled={submittingSkill}
+                  style={{
+                    backgroundColor: "#4f46e5",
+                    color: "#ffffff",
+                    border: "none",
+                    borderRadius: "12px",
+                    padding: "12px 24px",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                    cursor: "pointer",
+                    boxShadow: "0 4px 6px -1px rgba(79, 70, 229, 0.2)"
+                  }}
+                >
+                  {submittingSkill ? "Publishing..." : "Publish Listing"}
+                </button>
               </div>
             </form>
           </div>
+        </div>
+      )}
+
+      {/* Premium Toast Success Notification */}
+      {showToast && (
+        <div style={{
+          position: "fixed",
+          bottom: "32px",
+          right: "32px",
+          backgroundColor: "#0f172a",
+          color: "#ffffff",
+          padding: "16px 20px",
+          borderRadius: "16px",
+          boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+          zIndex: 99999
+        }}>
+          <div style={{
+            backgroundColor: "#3b82f6",
+            width: "24px",
+            height: "24px",
+            borderRadius: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <span style={{ fontSize: "14px", fontWeight: "600" }}>Skill listing created successfully!</span>
+          <button 
+            onClick={() => setShowToast(false)}
+            style={{
+              backgroundColor: "transparent",
+              border: "none",
+              color: "#64748b",
+              cursor: "pointer",
+              marginLeft: "12px",
+              padding: "2px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
         </div>
       )}
     </div>

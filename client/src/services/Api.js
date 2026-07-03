@@ -26,7 +26,7 @@ API.interceptors.request.use(
 
 // --- IN-MEMORY MOCK DATABASE SETUP (LocalStorage backed) ---
 const initMockDB = () => {
-  if (!localStorage.getItem("mock_user_v3")) {
+  if (!localStorage.getItem("mock_user_v4")) {
     const defaultUser = {
       id: "mock_user_alex",
       name: "Alex Rivers",
@@ -37,10 +37,10 @@ const initMockDB = () => {
       skillsToTeach: ["Python", "Algorithms", "Git Version Control"],
       skillsToLearn: ["UI Design", "Figma Prototyping"]
     };
-    localStorage.setItem("mock_user_v3", JSON.stringify(defaultUser));
+    localStorage.setItem("mock_user_v4", JSON.stringify(defaultUser));
   }
 
-  if (!localStorage.getItem("mock_skills_v3")) {
+  if (!localStorage.getItem("mock_skills_v4")) {
     const initialSkills = [
       {
         _id: "skill_alex_1",
@@ -100,11 +100,12 @@ const initMockDB = () => {
         reviewsList: []
       }
     ];
-    localStorage.setItem("mock_skills_v3", JSON.stringify(initialSkills));
+    localStorage.setItem("mock_skills_v4", JSON.stringify(initialSkills));
   }
 
-  if (!localStorage.getItem("mock_bookings_v3")) {
+  if (!localStorage.getItem("mock_bookings_v4")) {
     const defaultBookings = [
+      // Outgoing Requests (Sent by Alex)
       {
         _id: "req_1",
         skillId: "skill_react",
@@ -149,9 +150,62 @@ const initMockDB = () => {
         message: "Practice Spanish conversation for my study abroad interview next month.",
         status: "Declined",
         tutorNote: "Sorry, I won't be available during that time due to midterms. Let me know if you can reschedule for next week!"
+      },
+
+      // Incoming Requests (Received by Alex Rivers)
+      {
+        _id: "inc_1",
+        skillId: "skill_react",
+        studentId: {
+          _id: "stud_chloe",
+          name: "Chloe Miller",
+          school: "Stanford University",
+          avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150"
+        },
+        tutorId: "mock_user_alex",
+        subject: "React.js Basics",
+        category: "Coding",
+        date: "Oct 28, 2024",
+        time: "4:00 PM",
+        message: "Hi Alex! I saw your listing and I really need help understanding hooks and state management for my midterm project.",
+        status: "Pending"
+      },
+      {
+        _id: "inc_2",
+        skillId: "skill_alex_1",
+        studentId: {
+          _id: "stud_james",
+          name: "James Wilson",
+          school: "UC Berkeley",
+          avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150"
+        },
+        tutorId: "mock_user_alex",
+        subject: "Python for Data Science",
+        category: "Coding",
+        date: "Oct 30, 2024",
+        time: "10:00 AM",
+        message: "Looking forward to going over numpy arrays and data visualization with seaborn.",
+        status: "Accepted"
+      },
+      {
+        _id: "inc_3",
+        skillId: "skill_alex_2",
+        studentId: {
+          _id: "stud_maya",
+          name: "Maya Patel",
+          school: "NYU",
+          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150"
+        },
+        tutorId: "mock_user_alex",
+        subject: "UI Design Fundamentals",
+        category: "Design",
+        date: "Nov 02, 2024",
+        time: "2:00 PM",
+        message: "I love your portfolio! Can we go over grid systems?",
+        status: "Pending"
       }
     ];
-    localStorage.setItem("mock_bookings_v3", JSON.stringify(defaultBookings));
+    localStorage.setItem("mock_bookings_v4", JSON.stringify(defaultBookings));
   }
 };
 
@@ -160,12 +214,12 @@ if (USE_MOCK) {
 }
 
 // Helper fetchers
-const getMockUser = () => JSON.parse(localStorage.getItem("mock_user_v3"));
-const saveMockUser = (user) => localStorage.setItem("mock_user_v3", JSON.stringify(user));
-const getMockSkills = () => JSON.parse(localStorage.getItem("mock_skills_v3"));
-const saveMockSkills = (skills) => localStorage.setItem("mock_skills_v3", JSON.stringify(skills));
-const getMockBookings = () => JSON.parse(localStorage.getItem("mock_bookings_v3"));
-const saveMockBookings = (bookings) => localStorage.setItem("mock_bookings_v3", JSON.stringify(bookings));
+const getMockUser = () => JSON.parse(localStorage.getItem("mock_user_v4"));
+const saveMockUser = (user) => localStorage.setItem("mock_user_v4", JSON.stringify(user));
+const getMockSkills = () => JSON.parse(localStorage.getItem("mock_skills_v4"));
+const saveMockSkills = (skills) => localStorage.setItem("mock_skills_v4", JSON.stringify(skills));
+const getMockBookings = () => JSON.parse(localStorage.getItem("mock_bookings_v4"));
+const saveMockBookings = (bookings) => localStorage.setItem("mock_bookings_v4", JSON.stringify(bookings));
 
 
 // --- API EXPORTS (Switches automatically based on USE_MOCK) ---
