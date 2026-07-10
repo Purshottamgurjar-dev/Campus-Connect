@@ -1,11 +1,9 @@
-import React from 'react';
-import AppLayout from './components/Layout/AppLayout';
-import './App.css';
+import React from "react";
+import "./App.css";
+import AppLayout from "./components/Layout/AppLayout";
 
 function App() {
-  return (
-  <AppLayout />
-  );
+  return <AppLayout />;
 }
 
 export default App;

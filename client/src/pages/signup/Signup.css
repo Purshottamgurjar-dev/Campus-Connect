@@ -1,4 +1,4 @@
-.login-page {
+.signup-page {
   position: fixed;
   inset: 0;
   z-index: 9999;
@@ -8,14 +8,14 @@
   font-family: Inter, system-ui, sans-serif;
 }
 
-.login-backdrop {
+.signup-backdrop {
   position: absolute;
   inset: 0;
   background: rgba(15, 23, 42, 0.45);
   backdrop-filter: blur(8px) brightness(0.9);
 }
 
-.login-modal {
+.signup-modal {
   position: relative;
   width: min(420px, calc(100vw - 32px));
   background: #ffffff;
@@ -26,7 +26,7 @@
   text-align: center;
 }
 
-.login-close {
+.signup-close {
   position: absolute;
   right: 16px;
   top: 16px;
@@ -37,20 +37,20 @@
   cursor: pointer;
 }
 
-.login-title {
+.signup-title {
   margin: 0;
   font-size: 24px;
   font-weight: 700;
   color: #0f172a;
 }
 
-.login-sub {
+.signup-sub {
   margin: 8px 0 24px;
   color: #64748b;
   font-size: 14px;
 }
 
-.login-form {
+.signup-form {
   display: grid;
   gap: 12px;
   text-align: left;
@@ -83,7 +83,7 @@
   box-shadow: 0 10px 25px rgba(99, 102, 241, 0.12);
 }
 
-.login-btn {
+.signup-btn {
   width: 100%;
   height: 52px;
   border-radius: 14px;
@@ -96,7 +96,7 @@
   box-shadow: 0 12px 24px rgba(99, 102, 241, 0.22);
 }
 
-.login-error {
+.signup-error {
   background: #fef2f2;
   color: #b91c1c;
   border: 1px solid #fecaca;
@@ -105,13 +105,13 @@
   font-size: 13px;
 }
 
-.login-footer {
+.signup-footer {
   margin-top: 16px;
   color: #64748b;
   font-size: 13px;
 }
 
-.login-link {
+.signup-link {
   border: none;
   background: transparent;
   color: #4f46e5;
